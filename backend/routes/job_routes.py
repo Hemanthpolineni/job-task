@@ -5,6 +5,7 @@ from services.job_services import (
     get_all_jobs_service,
     create_job_service,
     delete_job_service,
+    update_job_service,
 )
 
 from schema import JobCreate
@@ -31,3 +32,8 @@ def create_job(job: JobCreate, db: Session = Depends(get_db)):
 @router.delete("/jobs/{id}")
 def delete_job(id: int, db: Session = Depends(get_db)):
     return delete_job_service(db, id)
+
+# 🔹 Update job
+@router.put("/jobs/{id}")
+def update_job(id: int, job: JobCreate, db: Session = Depends(get_db)):
+    return update_job_service(db, id, job)

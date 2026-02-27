@@ -18,3 +18,12 @@ def get_job_by_id(db, job_id: int):
 def delete_job(db, job: Job):
     db.delete(job)
     db.commit()
+
+
+def update_job(db,job,updated_data):
+    for key, value in updated_data.items():
+        setattr(job,key,value)
+
+    db.commit()
+    db.refresh(job)
+    return job        

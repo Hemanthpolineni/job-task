@@ -40,3 +40,19 @@ def delete_job_service(db, job_id):
     job_repository.delete_job(db, job)
 
     return {"message": "Deleted successfully"}
+
+def update_job_service(db, job_id, job_data):
+    job = job_repository.get_job_by_id(db, job_id)
+
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    updated_data = {
+        "position": job_data.position,
+        "experience": job_data.experience,
+        "location": job_data.location,
+        "team": job_data.team,
+        "type": job_data.type
+    }
+
+    return job_repository.update_job(db, job, updated_data)
